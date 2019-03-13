@@ -14,7 +14,7 @@ defineModule(sim, list(
   timeunit = "year",
   citation = list("citation.bib"),
   documentation = list("README.txt", "MDC_NWT_DataPrep.Rmd"),
-  reqdPkgs = list(),
+  reqdPkgs = list("raster"),
   parameters = rbind(
     #defineParameter("paramName", "paramClass", value, min, max, "parameter description"),
     defineParameter(".plotInitialTime", "numeric", NA, NA, NA, "This describes the simulation time at which the first plot event should occur"),
@@ -162,8 +162,12 @@ calcMDC <- function(sim)
       '6' = 30
     )[[as.character(i)]]
     
-    PPT <- sim[["climateLayers"]][[paste0("PPT0", i)]]
-    Tmax <- sim[["climateLayers"]][[paste0("PPT0", i)]]
+    browser()
+    
+    calc(sim[["climateLayers"]])
+    
+    PPT <- [[paste0("PPT0", i)]]
+    Tmax <- sim[["climateLayers"]][[paste0("Tmax0", i)]]
     
     MDC_m <- pmax(
       MDC_0 + .25 * n * (.36 * Tmax + L_f(i)) -
