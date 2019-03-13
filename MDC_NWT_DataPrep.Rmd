@@ -42,7 +42,7 @@ parameters <- list(
   #module2 = list(param1 = value1, param2 = value2)
 )
 
-modules <- list("MDC_NWT_DataPrep", "climate_NWT_DataPrep")
+modules <- list("climate_NWT_DataPrep", "MDC_NWT_DataPrep")
 objects <- list()
 inputs <- list()
 outputs <- list()

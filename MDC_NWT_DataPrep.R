@@ -60,7 +60,7 @@ doEvent.MDC_NWT_DataPrep = function(sim, eventTime, eventType) {
       sim <- scheduleEvent(sim, P(sim)$.plotInitialTime, "MDC_NWT_DataPrep", "plot")
       sim <- scheduleEvent(sim, P(sim)$.saveInitialTime, "MDC_NWT_DataPrep", "save")
       
-      sim <- scheduleEvent(sim, P(sim)$.runInitialTime, "MDC_NWT_DataPrep", "calc_MDC")
+      sim <- scheduleEvent(sim, P(sim)$.runInitialTime, "MDC_NWT_DataPrep", "calcMDC")
     },
     calcMDC = {
       
