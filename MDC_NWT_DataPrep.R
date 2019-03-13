@@ -152,7 +152,8 @@ calcMDC <- function(sim)
     )[[as.character(month)]]
   }
   
-  sim[["MDC06"]] <- calc(
+  sim[["MDC06"]] <- Cache(
+    calc,
     sim[["climateLayers"]],
     fun = function(x)
     {
@@ -245,7 +246,7 @@ Event2 <- function(sim) {
   #   sim$map <- Cache(prepInputs, extractURL('map')) # download, extract, load file from url in sourceURL
   # }
 
-  #cacheTags <- c(currentModule(sim), "function:.inputObjects") ## uncomment this if Cache is being used
+  # cacheTags <- c(currentModule(sim), "function:.inputObjects") ## uncomment this if Cache is being used
   dPath <- asPath(getOption("reproducible.destinationPath", dataPath(sim)), 1)
   message(currentModule(sim), ": using dataPath '", dPath, "'.")
 
