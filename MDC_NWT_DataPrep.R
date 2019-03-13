@@ -152,34 +152,36 @@ calcMDC <- function(sim)
     )[[as.character(month)]]
   }
   
-  MDC0 <- 0
-  
-  for (i in 4:6)
-  {
-    n <- c(
-      '4' = 30, 
-      '5' = 31,
-      '6' = 30
-    )[[as.character(i)]]
-    
-    browser()
-    
-    calc(sim[["climateLayers"]])
-    
-    PPT <- [[paste0("PPT0", i)]]
-    Tmax <- sim[["climateLayers"]][[paste0("Tmax0", i)]]
-    
-    MDC_m <- pmax(
-      MDC_0 + .25 * n * (.36 * Tmax + L_f(i)) -
-        400 * log(1 + 3.937 * .83 * PPT / (800 * exp(-MDC_0/400))) +
-        .25 * n * (.36 * Tmax + L_f(i)), 
-      0
-    )
-    
-    MDC_0 <- pmax((MDC_0 + MDC_m) / 2, 0)
-  }
-  
-  sim[["MDC06"]] <- MDC0
+  sim[["MDC06"]] <- calc(
+    sim[["climateLayers"]],
+    fun = function(x)
+    {
+      MDC_0 <- 0
+      
+      for (i in 4:6)
+      {
+        n <- c(
+          '4' = 30, 
+          '5' = 31,
+          '6' = 30
+        )[[as.character(i)]]
+        
+        PPT <- x[[paste0("PPT0", i)]]
+        Tmax <- x[[paste0("Tmax0", i)]]
+        
+        MDC_m <- pmax(
+          MDC_0 + .25 * n * (.36 * Tmax + L_f(i)) -
+            400 * log(1 + 3.937 * .83 * PPT / (800 * exp(-MDC_0/400))) +
+            .25 * n * (.36 * Tmax + L_f(i)), 
+          0
+        )
+        
+        MDC_0 <- pmax((MDC_0 + MDC_m) / 2, 0)
+      }
+      
+      MDC_0
+    }
+  )
   
   invisible(sim)
 }
